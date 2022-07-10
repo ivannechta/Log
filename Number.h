@@ -3,14 +3,14 @@ typedef unsigned int uint;
 #define MAXDIGITS 1000
 #define TERMINATOR 256
 
-
-
 class Number {
 public:
 	int* digit;
 	uint size;
 	uint notation; // система счисления
 public:
+#pragma region Constructor
+
 	void Init() { digit = new int[MAXDIGITS]; size = notation = 0; }
 	Number() { Init(); }
 	Number(uint n, uint p) { 
@@ -26,8 +26,9 @@ public:
 		digit[_s] = TERMINATOR;
 		size = _s;		
 	}
-
 	~Number() { delete digit; }
+#pragma endregion 
+	
 	void ZeroMem(int *a,int _s) {
 		for (int i = 0; i < _s; i++)
 		{
@@ -65,14 +66,22 @@ public:
 		return size;
 	}
 
-	uint Get()const {}
-//--------------
+	uint Get()const {
+		uint s = 0;
+		for (int i = 0; i < size; i++) {
+			s = s * notation + digit[i];
+		}
+		return s;
+	}
+
+#pragma region Operators
+
 	int operator[](int i) {
 		if ((i < 0) || (i >= (int)size))throw 3;
 		return digit[i];
 	}
 
-	Number& operator =(Number &b) {
+	/*Number& operator =(Number& b) {
 		if (this == &b)return (*this);
 		if (size != 0)delete digit;
 		size = b.GetSize();
@@ -84,7 +93,21 @@ public:
 		}
 		digit[size] = TERMINATOR;
 		return (*this);	
-	}	
+	}*/
+
+	Number& operator =(Number b) {
+		if (this == &b)return (*this);
+		if (size != 0)delete digit;
+		size = b.GetSize();
+
+		digit = new int[MAXDIGITS];
+		for (int i = 0; i < (int)size; i++)
+		{
+			digit[i] = b[i];
+		}
+		digit[size] = TERMINATOR;
+		return (*this);
+	}
 
 	bool operator ==(Number &b) {
 		if (this->size != b.GetSize()) return false;
@@ -130,7 +153,7 @@ public:
 		return (*this);
 	}
 
-	Number& operator -(Number &b) { 		
+	Number& operator -(Number &b) { 	//a-b	
 		int* result = new int[MAXDIGITS];
 		ZeroMem(result, MAXDIGITS);
 
@@ -140,7 +163,7 @@ public:
 
 		for (int i = size-1; i >= 0; i--) {
 			tmp = (bi < 0) ? 0 : b[bi];
-			if (digit[ai] < tmp) { //занимаем уследующего разряда
+			if (digit[ai] < tmp) { //занимаем у следующего разряда
 				result[ai - 1]--;
 				result[ai]+=notation; 
 			}
@@ -152,5 +175,23 @@ public:
 		-(*a);
 		return *a;
 	}
+
+
+	int Divide(uint p,uint y) {
+		uint Power = 0;
+		Number a(1, notation);
+		Number b(1, notation);
+		uint tmp, div;
+
+		while (a.Get() != y) {
+			while (a.Get() < notation) { a << 1; Power++; } //snosim
+			tmp = a.Get();
+			div = tmp / p;
+			b = Number(div * p, notation);
+			a = (a - b);
+		}
+		return Power;		
+	}
+#pragma endregion
 
 };
