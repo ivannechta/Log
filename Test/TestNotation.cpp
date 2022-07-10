@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "string.h"
-#include "../Log/Number.h"
-#include "../Log/Operation.h"
+#include "../../Log/Number.h"
+#include "../../Log/Operation.h"
 
 int cmp(int *a,int *b) {
 	int i = 0;
@@ -166,4 +166,12 @@ TEST(Shift, Shift1_1) {
 	Number r(7, 7);
 	a << 1;
 	ASSERT_EQ(a == r, true);
+}
+TEST(Get, Get15) {
+	Number a(15, 2);
+	ASSERT_EQ(a.Get() == 15, true);
+}
+TEST(Divide, Div_11_2) {
+	Number a(1, 7);
+	ASSERT_EQ(a.Divide(11, 2) == 3, true);
 }
