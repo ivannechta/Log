@@ -26,7 +26,12 @@ public:
 		digit[_s] = TERMINATOR;
 		size = _s;		
 	}
-	~Number() { delete digit; }
+	~Number() { 
+		if (digit != NULL) {
+			delete digit;
+			digit = NULL;
+		}
+	}
 #pragma endregion 
 	
 	void ZeroMem(int *a,int _s) {
@@ -97,7 +102,7 @@ public:
 
 	Number& operator =(Number b) {
 		if (this == &b)return (*this);
-		if (size != 0)delete digit;
+		if (size != 0) delete digit; 
 		size = b.GetSize();
 
 		digit = new int[MAXDIGITS];
@@ -184,10 +189,10 @@ public:
 		uint tmp, div;
 
 		while (a.Get() != y) {
-			while (a.Get() < notation) { a << 1; Power++; } //snosim
+			while (a.Get() < p) { a << 1; Power++; } //snosim
 			tmp = a.Get();
 			div = tmp / p;
-			b = Number(div * p, notation);
+			b.Set(div * p);
 			a = (a - b);
 		}
 		return Power;		

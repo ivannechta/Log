@@ -29,6 +29,12 @@ TEST(SetNumber, n20p7) {
 	ASSERT_EQ(cmp(n.digit, s), 0);
 }
 
+TEST(SetNumber, n44p7) {
+	Number n(44, 7);
+	int s[] = { 6,2,TERMINATOR };
+	ASSERT_EQ(cmp(n.digit, s), 0);
+}
+
 TEST(SetNumber, n125p8) {
 	Number n(125,8);
 	int s[] = { 1,7,5,TERMINATOR };
