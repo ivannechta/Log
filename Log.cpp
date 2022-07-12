@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "Number.h"
 #include "Operation.h"
+using namespace std;
 //#define UnitTEST
 
 #ifdef UnitTEST
@@ -14,9 +15,13 @@ int main(int argc, char* argv[])
 	return RUN_ALL_TESTS();
 	*/
 #else // UnitTEST
-	Number a(15, 2);
-	Number b(3, 2);
-	a < b;
+	int a = 3;
+	int p = 11;
+	int y = 1;
+
+	Number A(1, a);
+	cout << A.Divide(p, y);
+	system("pause");
 #endif
 	
 }

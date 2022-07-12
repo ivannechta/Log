@@ -175,9 +175,39 @@ TEST(Shift, Shift1_1) {
 }
 TEST(Get, Get15) {
 	Number a(15, 2);
-	ASSERT_EQ(a.Get() == 15, true);
+	ASSERT_EQ(a.Get(), 15);
 }
-TEST(Divide, Div_11_2) {
+TEST(Divide, Div_11_2) { //7^3%11=2
 	Number a(1, 7);
-	ASSERT_EQ(a.Divide(11, 2) == 3, true);
+	ASSERT_EQ(a.Divide(11, 2), 3);
+}
+
+TEST(Divide, Div_10_37_10) { //10^1%37=10
+	Number a(1, 10);
+	ASSERT_EQ(a.Divide(37, 10), 1);
+}
+
+TEST(Divide, Div_6_17_14) { //6^7%17=14
+	Number a(1, 6);
+	ASSERT_EQ(a.Divide(17, 14),7);
+}
+
+TEST(Divide, Div_4_11_4) { //4^1%11=4
+	Number a(1, 4);
+	ASSERT_EQ(a.Divide(11, 4),1);
+}
+
+TEST(Divide, Div_3_13_3) { //3^1%13=3
+	Number a(1, 3);
+	ASSERT_EQ(a.Divide(13, 3),1);
+}
+
+TEST(Divide, Div_9_19_16) { //9^5%19=16
+	Number a(1, 9);
+	ASSERT_EQ(a.Divide(19, 16),5);
+}
+
+TEST(Divide, Div_3_11_1) { //3^10%11=1
+	Number a(1, 3);
+	ASSERT_EQ(a.Divide(11, 1), 5);	
 }

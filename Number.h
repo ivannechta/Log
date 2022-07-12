@@ -183,17 +183,31 @@ public:
 
 
 	int Divide(uint p,uint y) {
+		bool Flag_Enter_Loop = false;
 		uint Power = 0;
 		Number a(1, notation);
 		Number b(1, notation);
 		uint tmp, div;
-
-		while (a.Get() != y) {
-			while (a.Get() < p) { a << 1; Power++; } //snosim
+		Number C(p, notation);
+		C.V();
+		if (y == notation)return 1;
+	
+		while ((a.Get() != y)||(!Flag_Enter_Loop)) {
+			Flag_Enter_Loop = true;
+			while (a.Get() < p) { //snosim 
+				a << 1; Power++; 
+				if (a.Get() == y) { return Power ; }
+			} 
+			a.V();
 			tmp = a.Get();
 			div = tmp / p;
+			printf("(%d)\n",div);
 			b.Set(div * p);
+			b.V();
 			a = (a - b);
+			a.V();
+			printf("--------- %d\n",Power);
+			if (Power > p)return -1;
 		}
 		return Power;		
 	}
